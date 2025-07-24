@@ -8,6 +8,7 @@ export const NoteState = (props) => {
     const [notes, setNotes] = useState(notesInitial)
 
 
+
     // get all note 
     const getNotes = async () => {
         //api call
@@ -36,9 +37,9 @@ export const NoteState = (props) => {
             body: JSON.stringify({ title, description, tag })
         });
         const json = await response.json();
-        setNotes(notes.concat(notes))
+        setNotes(notes.concat(json));
 
-    
+
     }
     // delete a note 
     const deleteNote = async (id) => {
@@ -76,14 +77,14 @@ export const NoteState = (props) => {
 
         let newNotes = JSON.parse(JSON.stringify(notes))
         //logic to edit in client 
-        for (let index = 0; index < notes.length; index++) {
+        for (let index = 0; index < newNotes.length; index++) {
             const element = newNotes[index];
-            if (element.id === id) {
+            if (element._id === id) {
                 newNotes[index].title = title;
                 newNotes[index].description = description;
                 newNotes[index].tag = tag;
+                break;
             }
-            break;
         }
         console.log(id, newNotes);
         setNotes(newNotes);
